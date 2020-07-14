@@ -6,13 +6,17 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            for (int i = 0; i < args.Length; i++)
+            string heightOption = "";
+            string weightOption = "";
+            for (int i =0; i<args.Length; i++)
             {
-                Console.WriteLine("オプション:" + args[i]);
+                if (i == 0) heightOption = args[i];
+                if (i == 1) weightOption = args[i];
             }
-            float height = InputAndParse("身長を入力してください");
+        
+            float height = InputAndParse(heightOption,"身長を入力してください");
 
-            float weight = InputAndParse("体重を入力して下さい");
+            float weight = InputAndParse(weightOption,"体重を入力して下さい");
 
             float bmi = weight / (height * height);
             Console.WriteLine("BMIは" + bmi.ToString());
@@ -22,10 +26,10 @@ namespace ConsoleApp1
         {
             return weight / (height * height);
         }
-        static float InputAndParse(string massage)
+        static float InputAndParse(string defaultInput, string massage)
         {
             float bmi = 0f;
-            bool parseSuccess = false;
+            bool parseSuccess = float.TryParse(defaultInput, out bmi);
             while (!parseSuccess)
             {
 
